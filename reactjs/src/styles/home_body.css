@@ -1,0 +1,203 @@
+body a{
+    text-decoration: none;
+}
+.session-home-1{
+    background-color: #FFF2E6;
+    text-align: left;
+}
+.session-home-1 .content-session,
+.session-home-2 .content-session{
+    position: relative;
+}
+.session-home-1 .img-session-bg{
+    position: absolute;
+    top: 50%;
+}
+.session-home-1 .img-content-session-1{
+    text-align: right;
+}
+.session-home-1 .img-content-session-1 .img-content-session-1-above img,
+.session-home-1 .img-content-session-1 .img-content-session-1-below img{
+    border-radius: 40px;
+}
+.session-home-1 .img-content-session-1 .img-content-session-1-above{
+    position: absolute;
+    top: 20%;
+}
+.session-home-1 .content{
+    padding: 90px 0px 90px 0px;
+}
+.session-home-1 .first-title{
+    margin-bottom: 33px;
+}
+.session-home-1 .first-title h2{
+    color: #82C341;
+    font-family: "Amatic SC", Sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 64px;
+}
+.session-home-1 .second-title{
+    margin-bottom: 35px;
+}
+.session-home-1 .second-title h2{
+    color: #000000;
+    font-size: 32px;
+    line-height: 24px;
+    font-family: Roboto Flex,sans-serif;
+    font-weight: 700;
+}
+.session-home-1 .first-para,
+.session-home-1 .second-para{
+    color: #414141;
+    font-size: 15px;
+    line-height: 24px;
+    margin-bottom: 35px;
+}
+.session-home-1 .button-about a{
+    font-family: "Roboto", Sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 45px;
+    background-color: #3F730A;
+    border-radius: 30px 30px 30px 30px;
+    padding: 0px 45px 0px 50px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-weight: 700;
+}
+.session-home-1 .button-about a:hover{
+    background-color: #82C341;
+}
+.session-home-1 .button-about a span:first-child{
+    margin-right: 10px;
+}
+
+
+/* Session 2 */
+.session-home-2 .content-session .img-session-bg{
+    position: absolute;
+    top: -185px;
+    z-index: 2;
+}
+.session-home-2 .container{
+    margin-top: 90px;
+}
+h2.title-session-2 {
+    color: #82c341;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: Amatic SC,cursive;
+    font-size: 40px;
+    margin-bottom: 50px;
+}
+.col-new-product{
+    max-height: 445px;
+    max-width: 95%;
+}
+.img-new-product img{
+    height: 360px;
+    width: 100%;
+}
+.content-new-product{
+    margin-top: 10px;
+}
+.content-new-product h4:first-child{
+    font-size: 16px;
+    line-height: 23px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    font-family: Roboto Flex,sans-serif;
+}
+.content-new-product h4:last-child{
+    font-size: 15px;
+    color: #e72f2c;
+    font-family: Roboto Flex,sans-serif;
+}
+
+/* Session 3 */
+.session-home-3{
+    overflow: hidden;
+}
+.session-home-3 .content-session{
+    background-color: #F8F8F8;
+    margin-top: 40px;
+}
+.session-home-3 .col-categories{
+    padding: 50px;
+}
+.session-home-3 .img-categories img{
+    width: 100%;
+    height: 180px;
+    border-radius: 40px;
+}
+.session-home-3 .img-categories:hover .count-categories-product{
+    opacity: 1;
+    visibility: visible;
+    padding: 0 0 30px 0;
+}
+.session-home-3 .count-categories-product{
+    text-align: right;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    width: 100%;
+    text-transform: capitalize;
+    font-size: 13px;
+    line-height: 18px;
+    position: absolute;
+    padding: 0 0 30px;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    color: #fff;
+}
+.session-home-3 .img-categories{
+    position: relative;
+}
+.session-home-3 .count-categories-product .count p{
+    margin: 0;
+}
+.session-home-3 .img-categories:hover .count-categories-product::after{
+    right: -35%;
+}
+.session-home-3 .count-categories-product::after{
+    background-image: url('../../src/img/layout/layout3.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    position: absolute;
+    right: -50%;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    bottom: -193%;
+    z-index: -1;
+    max-width: 331px;
+    width: 100%;
+    height: 278px;
+    padding: 0 0 30px;
+}
+.session-home-3 .count{
+    display: inline-block;
+    text-align: center;
+}
+
+
+
+/* Session 4 */
+.session-home-4{
+    padding: 10px;
+    overflow: hidden;
+}
+.session-home-4 .content-session{
+    background-image: url('../img/layout/back-18.jpg');
+    border-radius: 20px;
+    background-position: center center;
+    background-size: cover;
+    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+    padding: 80px 0px 80px 0px;
+}
