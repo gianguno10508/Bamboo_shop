@@ -1,0 +1,20 @@
+.footer{
+    background-color: #2B2B2B;
+    color: #8d8d8d;
+    font-family: Roboto Flex,sans-serif;
+}
+.footer .row{
+    text-align: left;
+}
+.footer .content-above{
+    font-size: 15px;
+    line-height: 28px;
+}
+.footer .content-under {
+    color: #82C341;
+    font-size: 15px;
+    line-height: 28px;
+}
+.footer ul{
+    list-style: none;
+}
