@@ -5,6 +5,7 @@ import Session_2 from './home_page/Session_2';
 import Session_3 from './home_page/Session_3';
 import Session_4 from './home_page/Session_4';
 import Session_5 from './home_page/Session_5';
+import Session_6 from './home_page/Session_6';
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
       <Session_3 />
       <Session_4 />
       <Session_5 />
+      <Session_6 />
     </div>
   );
 }
