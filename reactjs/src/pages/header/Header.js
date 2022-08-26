@@ -1,6 +1,67 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { actSearch, actSelectCategory } from '../../actions';
 import '../../styles/header_styles.css';
-function Header() {
+import Search from './Search';
+function Header(props) {
+    const [parents, setParent] = useState([]);
+    const [childs, setChild] = useState([]);
+    const url = 'http://reactjswordpress.com:828/wp-json/wp/v2/primary/menu';
+    useEffect(() => {
+        const fetchDataMenu = async () => {
+            try {
+                axios.get(url).then(function (response) {
+                    var arr = [];
+                    var child = [];
+                    response.data.forEach(element => {
+                        if (element.menu_item_parent == 0) {
+                            arr[element.ID] =
+                            {
+                                'id': element.ID,
+                                'title': element.title,
+                            }
+
+                        } else {
+                            // if (!arr[element.menu_item_parent]) {
+                            //     arr[element.menu_item_parent] = [];
+                            // }
+                            child[element.ID] =
+                            {
+                                'id': element.ID,
+                                'title': element.title,
+                                'cate':element.object_id
+                            }
+                            arr[element.menu_item_parent]['hasChild'] = [
+                                {
+                                    'hasChild': 'true'
+                                }
+                            ]
+                            arr[element.menu_item_parent][element.ID] =
+                            {
+                                'id_child': element.ID,
+                                'title': element.title,
+                                'parent': element.menu_item_parent,
+                            }
+
+                        }
+                    });
+                    setParent(arr);
+                    setChild(child);
+                }, function (error) {
+                    console.log(error)
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchDataMenu();
+    }, []);
+    const handleItemClick = (event, index) => {
+        props.chooseDishCate(childs[index].cate);
+        console.log(childs[index].cate);
+    };
     return (
         <div className="content">
             <div className="header">
@@ -9,7 +70,7 @@ function Header() {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <div className='left'>
                                 <div className='icon-phone'>
-                                <a href='tel:123456'><i class="fa-solid fa-phone"></i></a>
+                                    <a href='tel:123456'><i class="fa-solid fa-phone"></i></a>
                                 </div>
                                 <div className='info-phone'>
                                     <p>Need help?</p>
@@ -17,45 +78,53 @@ function Header() {
                                 </div>
                             </div>
                             <ul className="main navbar-nav mr-auto">
-                                <li className="nav-item active">
-                                    <Link className="nav-link" to="/">Home</Link>
-                                </li>
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Categories
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <Link className="dropdown-item" to="/">test</Link>
-                                        <Link className="dropdown-item" to="/">test</Link>
-                                        <Link className="dropdown-item" to="/">test</Link>
-                                    </div>
-                                </li>
-                                <li className="nav-item logo-page">
-                                    <Link className="nav-link" to="/">BambooFood</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/contact">Contact</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/about">About</Link>
-                                </li>
-                                <li className="nav-item">
-                                </li>
+                                {Array.isArray(parents) && parents != null ?
+                                    parents.map((item, index) => (
+                                        <>
+                                            {Array.isArray(parents[item.id]['hasChild']) ?
+                                                <li key={item.id} className="nav-item dropdown">
+                                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {item.title}
+                                                    </a>
+                                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        {childs.map((d, i) => (
+                                                            <Link className="dropdown-item" onClick={(event) => handleItemClick(event, i)} key={d.id} to='detailproduct' >{parents[item.id][d.id]['title']}</Link>
+                                                        ))}
+                                                    </div>
+                                                </li> :
+                                                <li key={item.id} className="nav-item active">
+                                                    <Link className="nav-link" to="/">{item.title}</Link>
+                                                </li>}
+                                        </>
+
+                                    )) : ''}
                             </ul>
-                            <div className='search searchBox'>
-                                <input type="text" placeholder="Search products" onKeyPress={(event) => {
-                                }} />
-                            </div> 
+                            <Search />
                             <div className='right'>
-                            <i class="fa-regular fa-user"></i>
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            </div>        
+                                <i class="fa-regular fa-user"></i>
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
                         </div>
-                    </nav>    
+                    </nav>
                 </div>
             </div>
         </div>
     );
-  }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        searchKeyword: (data) => {
+            dispatch(actSearch(data));
+        },
+        chooseDishCate: (data) => {
+            dispatch(actSelectCategory(data));
+        }
+    };
+};
+const mapStateToProps = (state, ownProps) => {
+    return {
+        select_category: state.dish_cate,
+    };
+};
   
-  export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);  

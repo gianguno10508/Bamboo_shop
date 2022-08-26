@@ -195,6 +195,8 @@ h2.title-session-2 {
 .session-home-4{
     padding: 10px;
     overflow: hidden;
+    position: relative;
+    top: 75px;
 }
 .session-home-4 .content-session{
     background-image: url('../img/layout/back-18.jpg');
@@ -225,13 +227,12 @@ h2.title-session-2 {
     height: 78px;
     margin-bottom: 30px;
     height: 3em;
+    font-size: 15px;
     line-height: 1.5em;
 }
 
 .session-home-5 .content-session {
     background-color: #FFF2E6;
-    position: relative;
-    top: -115px;
 }
 
 .session-home-5 h2.title {
@@ -297,6 +298,7 @@ h2.title-session-2 {
     font-family: "Roboto", Sans-serif;
     font-weight: 500;
     color: #82C341;
+    font-size: 15px;
     position: relative;
 }
 .session-home-5 a.btn-readmore:hover{
@@ -327,10 +329,16 @@ h2.title-session-2 {
     margin-bottom: 30px;
     height: 2.6em;
     line-height: 1.5em;
+    font-size: 24px;
 }
 
 
 /* Session 6 */
+.session-home-6{
+    position: relative;
+    top: 85px;
+    z-index: 2;
+}
 .session-home-6 .container{
     background-image: url('../../src/img/layout/back-19.jpg');
     background-position: center center;
@@ -377,10 +385,10 @@ h2.title-session-2 {
     line-height: 32px;
     font-weight: 500;
     position: relative;
-    right: 118px;
+    right: 115px;
     z-index: 5;
     background-color: #82c341!important;
-    top: 0;
+    top: -1px;
     cursor: pointer;
     border-radius: 30px;
     -webkit-border-radius: 30px;

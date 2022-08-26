@@ -6,6 +6,7 @@ import Header from './pages/header/Header';
 import Contact from './pages/body/Contact';
 import About from './pages/body/About';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import DetailsCate from './pages/body/DetailsCate';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
+        <Route path="detailproduct" element={<DetailsCate />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
       </Routes>

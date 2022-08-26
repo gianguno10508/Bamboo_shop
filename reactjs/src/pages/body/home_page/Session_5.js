@@ -22,7 +22,6 @@ function Session_5() {
         const fetchDataCategories = async () => {
             try {
                 axios.get(url).then(function (response) {
-                    console.log(response.data);
                     setPosts(response.data);
                 }, function (error) {
                     console.log(error)
