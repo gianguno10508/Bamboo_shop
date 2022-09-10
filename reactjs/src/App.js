@@ -7,6 +7,10 @@ import Contact from './pages/body/Contact';
 import About from './pages/body/About';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import DetailsCate from './pages/body/DetailsCate';
+import DetailsProducts from './pages/body/DetailsProducts';
+import DetailsPosts from './pages/body/DetailsPosts';
+import DetailsAccount from './pages/body/home_page/Account/DetailsAccount';
+import DetailsCart from './pages/body/DetailsCart';
 
 function App() {
   return (
@@ -15,7 +19,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
-        <Route path="detailproduct" element={<DetailsCate />} />
+        <Route path="detailpost" element={<DetailsPosts />} />
+        <Route path="detailproduct" element={<DetailsProducts />} />
+        <Route path="detailproductcate" element={<DetailsCate />} />
+        <Route path="detailaccount" element={<DetailsAccount />} />
+        <Route path="detailcart" element={<DetailsCart />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
       </Routes>

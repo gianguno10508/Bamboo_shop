@@ -28,9 +28,8 @@ function makeRequest(endpoint, method = "GET") {
   };
 
   const requestHTTP =
-    requestData.url + "?" + jQuery.param(oauth.authorize(requestData),{per_page:100});
-    console.log(requestHTTP);
-  return axios.get(requestHTTP);
+    requestData.url + "?" + jQuery.param(oauth.authorize(requestData));
+  return axios.get(requestHTTP,null,{per_page:100});
 }
 
 function getOauth() {

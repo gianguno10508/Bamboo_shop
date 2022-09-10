@@ -2,9 +2,11 @@ import React from 'react'
 
 function About() {
     return (
-        <div>
-            <h1>This is the about page</h1>
+        Array.isArray(product) && product.lenth> 0 ? 
+        <div key={product.id}>
+            <div>{product.name}</div>
         </div>
+        : null
     )
 }
 

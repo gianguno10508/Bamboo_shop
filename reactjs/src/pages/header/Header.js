@@ -2,9 +2,11 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actSearch, actSelectCategory } from '../../actions';
+import { actSelectCategory } from '../../actions';
 import '../../styles/header_styles.css';
 import Search from './Search';
+import Popup from "reactjs-popup";
+import Login from '../body/home_page/Account/Login';
 function Header(props) {
     const [parents, setParent] = useState([]);
     const [childs, setChild] = useState([]);
@@ -60,7 +62,6 @@ function Header(props) {
     }, []);
     const handleItemClick = (event, index) => {
         props.chooseDishCate(childs[index].cate);
-        console.log(childs[index].cate);
     };
     return (
         <div className="content">
@@ -88,7 +89,7 @@ function Header(props) {
                                                     </a>
                                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                                         {childs.map((d, i) => (
-                                                            <Link className="dropdown-item" onClick={(event) => handleItemClick(event, i)} key={d.id} to='detailproduct' >{parents[item.id][d.id]['title']}</Link>
+                                                            <Link className="dropdown-item" onClick={(event) => handleItemClick(event, i)} key={d.id} to='detailproductcate' >{parents[item.id][d.id]['title']}</Link>
                                                         ))}
                                                     </div>
                                                 </li> :
@@ -101,8 +102,15 @@ function Header(props) {
                             </ul>
                             <Search />
                             <div className='right'>
-                                <i class="fa-regular fa-user"></i>
-                                <i class="fa-solid fa-cart-shopping"></i>
+                                {Array.isArray(props.account) && props.account.length <= 0 ? 
+                                    <Popup modal trigger={<i style={{cursor: 'pointer'}} class="fa-regular fa-user"></i>}>
+                                        <Login />
+                                    </Popup>
+                                    :
+                                    <Link to='detailaccount'><i style={{cursor: 'pointer'}} class="fa-regular fa-user"></i></Link>
+                                }
+                                <Link to='detailcart'><i style={{cursor: 'pointer'}} class="fa-solid fa-cart-shopping"></i></Link>
+
                             </div>
                         </div>
                     </nav>
@@ -113,9 +121,6 @@ function Header(props) {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        searchKeyword: (data) => {
-            dispatch(actSearch(data));
-        },
         chooseDishCate: (data) => {
             dispatch(actSelectCategory(data));
         }
@@ -124,6 +129,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state, ownProps) => {
     return {
         select_category: state.dish_cate,
+        account: state.account
     };
 };
   

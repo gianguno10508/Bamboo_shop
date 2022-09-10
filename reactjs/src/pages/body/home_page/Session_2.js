@@ -2,8 +2,9 @@ import Slider from 'react-slick';
 import { useEffect, useState } from 'react';
 import image_session_2 from '../../../img/layout/layer-24.png'
 import { connect } from 'react-redux';
-import { actProducts } from '../../../actions';
+import { actProducts, actSelectProduct } from '../../../actions';
 import Woocommerce from '../../../functions/Woocommerce';
+import { Link } from 'react-router-dom';
 
 function Session_2(props) {
     const settings = {
@@ -18,12 +19,15 @@ function Session_2(props) {
     };
     const [product, setProducts] = useState([]);
     useEffect(() => {
-        Woocommerce.getProducts().then(function (response){
-                setProducts(response.data);
-                props.setStateProduct(response.data);
-            }
+        Woocommerce.getProducts().then(function (response) {
+            setProducts(response.data);
+            props.setStateProduct(response.data);
+        }
         );
     }, []);
+    const handleItemClick = (event, index) => {
+        props.chooseDishProduct(product[index].id);
+    };
     return (
         <section className='session-home-2'>
             <div className='content-session'>
@@ -37,16 +41,19 @@ function Session_2(props) {
                             <Slider {...settings}>
                                 {product.map((d, index) => (
                                     <div
+                                        onClick={(event) => handleItemClick(event, index)}
                                         className='col-new-product'
                                         key={d.id}
                                     >
-                                        <div className="img-new-product">
-                                            <img src={d.images[0].src} />
-                                        </div>
-                                        <div className="content-new-product">
-                                            <h4>{d.name}</h4>
-                                            <h4>{d.price+ " đ"}</h4>
-                                        </div>
+                                        <Link to='detailproduct'>
+                                            <div className="img-new-product">
+                                                <img src={d.images[0].src} />
+                                            </div>
+                                            <div className="content-new-product">
+                                                <h4>{d.name}</h4>
+                                                <h4>{d.price + " đ"}</h4>
+                                            </div>
+                                        </Link>
                                     </div>
                                 ))}
                             </Slider>
@@ -58,11 +65,14 @@ function Session_2(props) {
     );
 }
 const mapDispatchToProps = (dispatch) => {
-	return {
+    return {
+        chooseDishProduct: (data) => {
+            dispatch(actSelectProduct(data))
+        },
         setStateProduct: (data) => {
             dispatch(actProducts(data));
         },
-	};
+    };
 };
 const mapStateToProps = (state, ownProps) => {
     return {

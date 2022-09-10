@@ -22,10 +22,8 @@ function DetailsCate(props) {
                 }
             });
             setCurrentCate(props.cate);
-            console.log(array_product_cate);
             if (array_product_cate != null) {
                 setProductCate(array_product_cate);
-                console.log(productCate);
             }
             props.categories.forEach(e => {
                 if (props.cate == e.id) {

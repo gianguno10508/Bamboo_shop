@@ -4,6 +4,9 @@ body{
 body a{
     text-decoration: none;
 }
+body a:hover{
+    text-decoration: none;
+}
 .session-home-1{
     background-color: #FFF2E6;
     text-align: left;
@@ -106,6 +109,7 @@ h2.title-session-2 {
 }
 .content-new-product{
     margin-top: 10px;
+    color: #000000;
 }
 .content-new-product h4:first-child{
     font-size: 16px;
@@ -290,6 +294,7 @@ h2.title-session-2 {
 .session-home-5 .content-posts{
     position: relative;
     padding: 30px 30px 55px;
+    color: #000000;
 }
 .session-home-5 .img-posts img{
     width: 100%;
@@ -300,6 +305,7 @@ h2.title-session-2 {
     color: #82C341;
     font-size: 15px;
     position: relative;
+    text-decoration: none;
 }
 .session-home-5 a.btn-readmore:hover{
     color: #82C341;

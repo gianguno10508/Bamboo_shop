@@ -3,9 +3,10 @@ import Slider from 'react-slick';
 import { useEffect, useState } from 'react';
 import { Markup } from 'interweave';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actPost, actSelectPost } from '../../../actions';
 
-function Session_5() {
-
+function Session_5(props) {
     const settings = {
         dots: false,
         infinite: true,
@@ -23,6 +24,7 @@ function Session_5() {
             try {
                 axios.get(url).then(function (response) {
                     setPosts(response.data);
+                    props.Posts(response.data);
                 }, function (error) {
                     console.log(error)
                 })
@@ -32,6 +34,15 @@ function Session_5() {
         };
         fetchDataCategories();
     }, []);
+    const handleItemClick = (event, index) => {
+        var array_post =[{
+            'id': posts[index].id,
+            'title': posts[index].title.rendered,
+            'content': posts[index].content.rendered,
+            'img': posts[index].jetpack_featured_media_url,
+        }];
+        props.selectPost(array_post);
+    };
     return (
         <section className='session-home-5'>
             <div className='content-session'>
@@ -41,26 +52,29 @@ function Session_5() {
                         <Slider {...settings}>
                             {posts.map((d, index) => (
                                 <div
+                                    onClick={(event) => handleItemClick(event, index)}
                                     className='col-posts'
                                     key={d.id}
                                 >
-                                    <div className="img-posts">
-                                        <img src={d.jetpack_featured_media_url} />
-                                    </div>
-                                    <div className="content-posts">
-                                        <div className="date-posts" data={formatDate(d.date)}>
-                                            <span className='day-blog'>
-                                                {formatDate(d.date).substring(0,2)}
-                                            </span>
-                                            <span>{toMonthName(formatDate(d.date).substring(3,5))}</span>
-                                            <span>{formatDate(d.date).substring(6,10)}</span>
+                                    <Link to='detailpost'>
+                                        <div className="img-posts">
+                                            <img src={d.jetpack_featured_media_url} />
                                         </div>
-                                        <h4 className='title-post'>{d.title.rendered}</h4>
-                                        <div className="content-excerpt">
-                                            <Markup content={d.excerpt.rendered} />
+                                        <div className="content-posts">
+                                            <div className="date-posts" data={formatDate(d.date)}>
+                                                <span className='day-blog'>
+                                                    {formatDate(d.date).substring(0,2)}
+                                                </span>
+                                                <span>{toMonthName(formatDate(d.date).substring(3,5))}</span>
+                                                <span>{formatDate(d.date).substring(6,10)}</span>
+                                            </div>
+                                            <h4 className='title-post'>{d.title.rendered}</h4>
+                                            <div className="content-excerpt">
+                                                <Markup content={d.excerpt.rendered} />
+                                            </div>
+                                            <Link to='detailpost' className='btn-readmore'>Read more</Link>
                                         </div>
-                                        <Link to='/' className='btn-readmore'>Read more</Link>
-                                    </div>
+                                    </Link>
                                 </div>
                             ))}
                         </Slider>
@@ -85,5 +99,21 @@ function toMonthName(monthNumber) {
       month: 'long',
     });
 }
-  
-export default Session_5;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        selectPost: (data) => {
+            dispatch(actSelectPost(data))
+        },
+        Posts: (data)=>{
+            dispatch(actPost(data))
+        }
+
+    };
+};
+const mapStateToProps = (state, ownProps) => {
+    console.log(state);
+    return {
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Session_5);

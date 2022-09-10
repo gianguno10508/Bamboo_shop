@@ -33,7 +33,7 @@ function Session_3(props) {
                 <div className='row'>
                     <Slider {...settings}>
                         {categories.map((d, index) => (
-                            <Link onClick={(event) => handleItemClick(event, index)} key={d.id} to='detailproduct' >
+                            <Link onClick={(event) => handleItemClick(event, index)} key={d.id} to='detailproductcate' >
                                 <div
                                     className='col-categories'
                                     key={d.id}

@@ -1,4 +1,4 @@
-import {CATEGORIES, GET_FOOD_CATEGORY, GET_FOOD_SEARCH, PRODUCTS } from "../const/action-types";
+import {CATEGORIES, GET_ACCOUNT, GET_FOOD_CATEGORY, GET_FOOD_SEARCH, GET_POST, GET_POST_SELECT, PRODUCTS } from "../const/action-types";
 
 export const actSelectCategory = (data) => {
   return {
@@ -6,7 +6,7 @@ export const actSelectCategory = (data) => {
     data, 
   };
 };
-export const actSearch = (data) => {
+export const actSelectProduct = (data) => {
   return {
     type: GET_FOOD_SEARCH,
     data,
@@ -24,3 +24,23 @@ export const actCategories = (data) => {
       data
   };
 };
+export const actSelectPost = (data) => {
+  return {
+      type: GET_POST_SELECT,
+      data
+  };
+};
+export const actPost = (data) => {
+  return {
+      type: GET_POST,
+      data
+  };
+};
+export const actAccount = (data) => {
+  return {
+      type: GET_ACCOUNT,
+      data
+  };
+};
+
+
