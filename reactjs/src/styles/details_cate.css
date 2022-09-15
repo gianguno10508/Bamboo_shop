@@ -13,3 +13,7 @@
 .details-cate .container{
     padding: 65px 0px;
 }
+
+.details-cate .col-md-3{
+    cursor: pointer;
+}

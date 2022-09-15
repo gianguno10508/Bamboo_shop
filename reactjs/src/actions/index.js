@@ -1,4 +1,4 @@
-import {CATEGORIES, GET_ACCOUNT, GET_FOOD_CATEGORY, GET_FOOD_SEARCH, GET_POST, GET_POST_SELECT, PRODUCTS } from "../const/action-types";
+import {CATEGORIES, GET_ACCOUNT, GET_CART, GET_FOOD_CATEGORY, GET_FOOD_SEARCH, GET_POST, GET_POST_SELECT, PRODUCTS } from "../const/action-types";
 
 export const actSelectCategory = (data) => {
   return {
@@ -42,5 +42,10 @@ export const actAccount = (data) => {
       data
   };
 };
-
+export const actCart = (data) => {
+  return {
+      type: GET_CART,
+      data
+  };
+};
 

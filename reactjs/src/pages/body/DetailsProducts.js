@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import { Markup } from 'interweave';
 import '../../styles/details_product.css';
 import axios from "axios";
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
+import { actSelectProduct } from '../../actions';
 function DetailsProducts(props) {
     const [productDetail, setProductDetail] = useState([]);
     const [productCate, setProductCate] = useState([]);
     const [quantity, setQuantity] = useState(0);
     const [checkLog, setcheckLog] = useState(null);
+    const [images, setImages] = useState([]);
     useEffect(() => {
         if (props.id_product != null && Array.isArray(props.products) && props.products != null) {
             var array_product = [];
@@ -17,6 +21,7 @@ function DetailsProducts(props) {
             props.products.forEach(element => {
                 if (props.id_product == element.id) {
                     array_product = [{
+                        'id_product': element.id,
                         'name': element.name,
                         'price': element.price,
                         'regular_price': element.regular_price,
@@ -25,12 +30,37 @@ function DetailsProducts(props) {
                         'img': element.images
                     }]
                     id_cate = element.categories[0].id;
+                    console.log(element.images);
+                    if(element.images.length>2){
+                        setImages([
+                            {
+                                original: element.images[0].src,
+                                thumbnail: element.images[0].src,
+                            },
+                            {
+                                original: element.images[1].src,
+                                thumbnail: element.images[1].src,
+                            },
+                            {
+                                original: element.images[2].src,
+                                thumbnail: element.images[2].src,
+                            },
+                        ]);
+                    }else{
+                        setImages([
+                            {
+                                original: element.images[0].src,
+                                thumbnail: element.images[0].src,
+                            }
+                        ]);
+                    }
                 }
             });
             setProductDetail(array_product);
             props.products.forEach(element => {
                 if (id_cate == element.categories[0].id) {
                     array_product_cate[i] = {
+                        'id_product': element.id,
                         'name': element.name,
                         'price': element.price,
                         'regular_price': element.regular_price,
@@ -42,41 +72,46 @@ function DetailsProducts(props) {
             setProductCate(array_product_cate);
         }
     }, [props.id_product, props.products]);
-
     var array_cart = [];
     const url = "http://reactjswordpress.com:828/wp-json/wp/v2/add/cart/";
     const handleSubmit = (event, index) => {
         event.preventDefault();
         setcheckLog(null);
-        if( Array.isArray(props.account) && props.account.length <= 0 ){
+        if (Array.isArray(props.account) && props.account.length <= 0) {
             setcheckLog('Bạn cần đăng nhập!!');
-        }else{
+        } else {
             array_cart[props.account.ID] = {
-                'img'      : productDetail[0].img,
-                'name'     : productDetail[0].name,
-                'quantity' : quantity,
-                'price'    : productDetail[0].price,
-                'total_price': quantity*productDetail[0].price
+                'id_product': productDetail[0].id_product,
+                'img': productDetail[0].img,
+                'name': productDetail[0].name,
+                'quantity': quantity,
+                'price': productDetail[0].price,
+                'total_price': quantity * productDetail[0].price
             }
             try {
-                axios.post(url,null,{
-                    params:{
+                axios.post(url, null, {
+                    params: {
                         id_user: props.account.ID,
+                        id_product: productDetail[0].id_product,
                         name: productDetail[0].name,
-                        price: quantity*productDetail[0].price,
+                        price: quantity * productDetail[0].price,
                         quantity: quantity,
                         img: productDetail[0].img[0].src
-                    }}).then(function (response) {
-                        if (response.data) {
-                            console.log(response.data);
-                        }
-                    }, function (error) {
-                        console.log(error);
-                    })
+                    }
+                }).then(function (response) {
+                    if (response.data) {
+                        console.log(response.data);
+                    }
+                }, function (error) {
+                    console.log(error);
+                })
             } catch (error) {
                 console.log(error);
-            }    
+            }
         }
+    };
+    const handleItemClick = (event, index) => {
+        props.chooseDishProduct(productCate[index].id_product);
     };
     return (
         <section className='details-product'>
@@ -88,29 +123,9 @@ function DetailsProducts(props) {
                             <div className='row'>
                                 <div className='col-md-6 col-left'>
                                     <div className="img-product-details">
-                                        <img src={productDetail[0].img[0].src} />
-                                        {(productDetail[0].img.length) > 2 ?
-                                            <div className='gallery row'>
-                                                <div
-                                                    // onClick={(event) => handleItemClick(event, index)}
-                                                    className='col-md-4'
-                                                >
-                                                    <img src={productDetail[0].img[0].src} />
-                                                </div>
-                                                <div
-                                                    // onClick={(event) => handleItemClick(event, index)}
-                                                    className='col-md-4'
-                                                >
-                                                    <img src={productDetail[0].img[1].src} />
-                                                </div>
-                                                <div
-                                                    // onClick={(event) => handleItemClick(event, index)}
-                                                    className='col-md-4'
-                                                >
-                                                    <img src={productDetail[0].img[2].src} />
-                                                </div>
-                                            </div>
-                                            : null}
+                                        <div>
+                                            <ImageGallery items={images} />;
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='col-md-6 col-right'>
@@ -129,7 +144,7 @@ function DetailsProducts(props) {
                                         <div className="quantity-button">
                                             <div className="quantity">
                                                 <button type="button" className="minus">-</button>
-                                                <input type="number" className="input-text qty text" onChange={event => setQuantity(event.target.value)}/>
+                                                <input type="number" className="input-text qty text" onChange={event => setQuantity(event.target.value)} />
                                                 <button type="button" className="plus">+</button>
                                             </div>
                                             <button type="submit" className="single_add_to_cart_button button alt">Add to cart</button>
@@ -151,6 +166,7 @@ function DetailsProducts(props) {
                                     <div
                                         className='col-md-3'
                                         key={index}
+                                        onClick={(event) => handleItemClick(event, index)}
                                     >
                                         <div className="img-new-product">
                                             <img src={d.img} />
@@ -172,6 +188,9 @@ function DetailsProducts(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        chooseDishProduct: (data) => {
+            dispatch(actSelectProduct(data))
+        },
     };
 };
 const mapStateToProps = (state, ownProps) => {

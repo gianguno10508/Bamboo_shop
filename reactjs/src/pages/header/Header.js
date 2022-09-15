@@ -87,10 +87,13 @@ function Header(props) {
                                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         {item.title}
                                                     </a>
-                                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                        {childs.map((d, i) => (
-                                                            <Link className="dropdown-item" onClick={(event) => handleItemClick(event, i)} key={d.id} to='detailproductcate' >{parents[item.id][d.id]['title']}</Link>
-                                                        ))}
+                                                    <div className="dropdown-menu categories" aria-labelledby="navbarDropdown">
+                                                        <h3>Categories</h3>
+                                                        <ul className='cate-menu'>
+                                                            {childs.map((d, i) => (
+                                                                <li><Link className="dropdown-item" onClick={(event) => handleItemClick(event, i)} key={d.id} to='detailproductcate' >{parents[item.id][d.id]['title']}</Link></li>
+                                                            ))}
+                                                        </ul>
                                                     </div>
                                                 </li> :
                                                 <li key={item.id} className="nav-item active">

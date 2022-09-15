@@ -24,12 +24,15 @@ function makeRequest(endpoint, method = "GET") {
 
   const requestData = {
     url: baseURL + endpoint,
-    method
+    method,
+    data: {
+      per_page: 100
+    }
   };
 
   const requestHTTP =
     requestData.url + "?" + jQuery.param(oauth.authorize(requestData));
-  return axios.get(requestHTTP,null,{per_page:100});
+  return axios.get(requestHTTP);
 }
 
 function getOauth() {

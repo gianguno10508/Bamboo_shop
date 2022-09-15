@@ -11,6 +11,8 @@ import DetailsProducts from './pages/body/DetailsProducts';
 import DetailsPosts from './pages/body/DetailsPosts';
 import DetailsAccount from './pages/body/home_page/Account/DetailsAccount';
 import DetailsCart from './pages/body/DetailsCart';
+import Checkout from './pages/body/Checkout';
+import Register from './pages/body/home_page/Account/Register';
 
 function App() {
   return (
@@ -22,8 +24,10 @@ function App() {
         <Route path="detailpost" element={<DetailsPosts />} />
         <Route path="detailproduct" element={<DetailsProducts />} />
         <Route path="detailproductcate" element={<DetailsCate />} />
+        <Route path="register" element={<Register />} />
         <Route path="detailaccount" element={<DetailsAccount />} />
         <Route path="detailcart" element={<DetailsCart />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
       </Routes>

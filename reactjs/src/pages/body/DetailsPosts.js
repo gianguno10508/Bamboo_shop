@@ -17,10 +17,10 @@ function DetailsPosts(props) {
     };
     const handleItemClick = (event, index) => {
         var array_post =[{
-            'id': props.select_posts[index].id,
-            'title': props.select_posts[index].title.rendered,
-            'content': props.select_posts[index].content.rendered,
-            'img': props.select_posts[index].jetpack_featured_media_url,
+            'id': props.posts[index].id,
+            'title': props.posts[index].title.rendered,
+            'content': props.posts[index].content.rendered,
+            'img': props.posts[index].jetpack_featured_media_url,
         }];
         props.selectPost(array_post);
     };
@@ -53,7 +53,7 @@ function DetailsPosts(props) {
                                         className='col-posts'
                                         key={d.id}
                                     >
-                                        <Link to='detailpost'>
+                                        <Link to='/detailpost'>
                                             <div className="img-posts">
                                                 <img src={d.jetpack_featured_media_url} />
                                             </div>

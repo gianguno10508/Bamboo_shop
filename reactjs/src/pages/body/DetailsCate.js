@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { actSelectProduct } from '../../actions';
 import '../../styles/details_cate.css';
 function DetailsCate(props) {
     const [productCate, setProductCate] = useState([]);
@@ -13,6 +15,7 @@ function DetailsCate(props) {
             props.products.forEach(element => {
                 if (props.cate == element.categories[0].id) {
                     array_product_cate[i] = {
+                        'id_product': element.id,
                         'name': element.name,
                         'price': element.price,
                         'regular_price': element.regular_price,
@@ -35,6 +38,9 @@ function DetailsCate(props) {
             })
         }
     }, [props.cate, props.products]);
+    const handleItemClick = (event, index) => {
+        props.chooseDishProduct(productCate[index].id_product);
+    };
     return (
         <section className='details-cate'>
             <div className='content-session'>
@@ -43,18 +49,22 @@ function DetailsCate(props) {
                     <div className='row'>
                         {Array.isArray(productCate) && productCate[0] != null ?
                             productCate.map((d, index) => (
-                                <div
-                                    className='col-md-3'
-                                    key={index}
-                                >
-                                    <div className="img-new-product">
-                                        <img src={d.img} />
+                                
+                                    <div
+                                        onClick={(event) => handleItemClick(event, index)}
+                                        className='col-md-3'
+                                        key={index}
+                                    >
+                                        <Link to='/detailproduct'>
+                                            <div className="img-new-product">
+                                                <img src={d.img} />
+                                            </div>
+                                            <div className="content-new-product">
+                                                <h4>{d.name}</h4>
+                                                <h4>{d.price + " đ"}</h4>
+                                            </div>
+                                        </Link>
                                     </div>
-                                    <div className="content-new-product">
-                                        <h4>{d.name}</h4>
-                                        <h4>{d.price + " đ"}</h4>
-                                    </div>
-                                </div>
                             )) : <h3>So sorry we will update later</h3>
                         }
                     </div>
@@ -66,6 +76,9 @@ function DetailsCate(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        chooseDishProduct: (data) => {
+            dispatch(actSelectProduct(data))
+        }
     };
 };
 const mapStateToProps = (state, ownProps) => {

@@ -72,7 +72,7 @@ function Session_5(props) {
                                             <div className="content-excerpt">
                                                 <Markup content={d.excerpt.rendered} />
                                             </div>
-                                            <Link to='detailpost' className='btn-readmore'>Read more</Link>
+                                            <Link to='/detailpost' className='btn-readmore'>Read more</Link>
                                         </div>
                                     </Link>
                                 </div>

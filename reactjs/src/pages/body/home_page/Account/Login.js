@@ -55,7 +55,7 @@ function Login(props) {
                     <h2>Sign in</h2>
                     <div class="content">
                             <div class="username">
-                                <input type="text" required="required" class="input-text" name="username" id="username" placeholder="Username*" onChange={event => setUser(event.target.value)}/>
+                                <input type="text" required="required" class="input-text" name="username" id="username" placeholder="Username or Email*" onChange={event => setUser(event.target.value)}/>
                             </div>
                             <div class="password">
                                 <input class="input-text" required="required" type="password" name="password" id="password" placeholder="Password*" onChange={event => setPass(event.target.value)}/>
@@ -72,7 +72,11 @@ function Login(props) {
                             <div class="button-login">
                                 <input type="submit" class="button" name="login" value="Login" />
                             </div>
-                            <div class="button-next-reregister">Create An Account</div>
+                            <Link to="/register">
+                                <div class="button-next-reregister">
+                                    Create An Account
+                                </div>
+                            </Link>
                     </div>
                 </form>
             </div>
