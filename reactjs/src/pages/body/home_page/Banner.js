@@ -21,7 +21,7 @@ function Banner() {
         animateOut: 'animateOut',
       };
     const [banner, setBanner] = useState([]);
-    const url = 'http://localhost:828/wp-json/wp/v2/get/banner/';
+    const url = 'https://72.arrowhitech.net/tn3/giang_reactjs/wp-json/wp/v2/get/banner/';
     useEffect(() => {
         const fetchDataCategories = async () => {
             try {
